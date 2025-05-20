@@ -98,4 +98,4 @@ CREATE TABLE inventario
     inventarioId INT AUTO_INCREMENT PRIMARY KEY,
     productoId   INT REFERENCES producto (productoId),
     stock        INT NOT NULL
-);
+)
