@@ -1,0 +1,9 @@
+USE BFC;
+
+DELIMITER $$
+
+CREATE OR ALTER PROCEDURE getAllPedidos()
+BEGIN
+    SELECT * FROM pedido ;
+
+DELIMITER ;
