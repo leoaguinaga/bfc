@@ -119,8 +119,6 @@ public class UsuarioDAO {
         }
     }
 
-
-
     public List<Usuario> listarUsuarios() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
         String query = "SELECT * FROM usuario";

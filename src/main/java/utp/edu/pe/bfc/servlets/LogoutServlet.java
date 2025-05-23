@@ -22,20 +22,24 @@ public class LogoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         Usuario usuario = (Usuario) session.getAttribute("usuario");
-        String usertype = usuario.getTipo().toString();
 
-        try {
-            session.invalidate();
+        if (usuario == null) {
+            resp.sendRedirect("index.jsp");
+        } else {
+            String usertype = usuario.getTipo().toString();
+            try {
+                session.invalidate();
 
-            if ("ADMIN".equals(usertype)) {
-                resp.sendRedirect("./index.jsp");
-            } else {
-                resp.sendRedirect("index.jsp");
+                if ("ADMIN".equals(usertype)) {
+                    resp.sendRedirect("./index.jsp");
+                } else {
+                    resp.sendRedirect("index.jsp");
+                }
+
+            } catch (Exception e) {
+                req.setAttribute("message", e.getMessage());
+                req.getRequestDispatcher("error.jsp").forward(req, resp);
             }
-
-        }catch (Exception e){
-            req.setAttribute("message", e.getMessage());
-            req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
     }
 }

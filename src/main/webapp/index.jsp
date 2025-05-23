@@ -2,6 +2,8 @@
 <%@ page import="utp.edu.pe.bfc.dao.ProductoDAO" %>
 <%@ page import="utp.edu.pe.bfc.models.Producto" %>
 <%@ page import="java.util.List" %>
+<%@ page import="utp.edu.pe.bfc.dao.ComboDAO" %>
+<%@ page import="utp.edu.pe.bfc.models.Combo" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
   HttpSession session1 = request.getSession(false);
@@ -10,6 +12,10 @@
   ProductoDAO productoDAO = new ProductoDAO();
   List<Producto> productos = productoDAO.getActiveAProductos();
   productoDAO.close();
+
+  ComboDAO comboDAO = new ComboDAO();
+  List<Combo> combos = comboDAO.getActiveACombos();
+  comboDAO.close();
 %>
 <!DOCTYPE html>
 <html>
@@ -66,12 +72,25 @@
 
 <div class="container" style="margin-top:21px;">
   <div class="row">
+    <h1>Productos</h1>
     <!-- Columna 1 -->
     <% for (Producto producto : productos) { %>
     <div style="margin-left:60px; margin-right:-42px; margin-top:11.5px; width:261px; padding:0; border:1px solid lightgray; border-radius:3px; position: relative;">
       <img src="image/<%= producto.getNombre() %>" style="width:100%; height:50.4%; display: block; margin-bottom:9.92px;">
       <p class="fw-bold" style="margin-bottom:50px; text-align:center;"><%= producto.getNombre() %></p>
       <p class="mb-3 text-center">S/<%= producto.getPrecio() %></p>
+      <button class="btn btn-danger"style="width:120px; height:60px; border-radius: 40px; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);">Carrito</button>
+    </div>
+    <% } %>
+  </div>
+  <div class="row">
+    <h1>Combos</h1>
+    <!-- Columna 1 -->
+    <% for (Combo combo : combos) { %>
+    <div style="margin-left:60px; margin-right:-42px; margin-top:11.5px; width:261px; padding:0; border:1px solid lightgray; border-radius:3px; position: relative;">
+      <img src="image/<%= combo.getNombre() %>" style="width:100%; height:50.4%; display: block; margin-bottom:9.92px;">
+      <p class="fw-bold" style="margin-bottom:50px; text-align:center;"><%= combo.getNombre() %></p>
+      <p class="mb-3 text-center">S/<%= combo.getPrecio() %></p>
       <button class="btn btn-danger"style="width:120px; height:60px; border-radius: 40px; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);">Carrito</button>
     </div>
     <% } %>
