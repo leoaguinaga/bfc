@@ -1,17 +1,22 @@
 package utp.edu.pe.bfc.servlets.productos;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import utp.edu.pe.bfc.dao.ProductoDAO;
 import utp.edu.pe.bfc.models.Producto;
 import utp.edu.pe.bfc.models.enums.Categoria;
+import utp.edu.pe.bfc.utils.AppConfig;
+import utp.edu.pe.bfc.utils.UTPBinary;
 
 import java.io.IOException;
 
-@WebServlet("/crear-producto")
+@MultipartConfig
+@WebServlet("/admin/crear-producto")
 public class CrearProductoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,13 +28,18 @@ public class CrearProductoServlet extends HttpServlet {
         try {
             String nombre = req.getParameter("nombre");
             float precio = Float.parseFloat(req.getParameter("precio"));
-            String imagen = req.getParameter("imagen");
+            Part filePart = req.getPart("imagen");
             Categoria categoria = Categoria.valueOf(req.getParameter("categoria"));
+
+            String imgDir = AppConfig.getImageDir();
+
+            byte[] fileContent = filePart.getInputStream().readAllBytes();
+            UTPBinary.echobin(fileContent, imgDir+"/"+ nombre + ".jpg");
 
             Producto producto = new Producto();
             producto.setNombre(nombre);
             producto.setPrecio(precio);
-            producto.setImagen(imagen);
+            producto.setImagen(nombre);
             producto.setCategoria(categoria);
 
             ProductoDAO productoDAO = new ProductoDAO();

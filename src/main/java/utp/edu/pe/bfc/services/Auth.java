@@ -1,7 +1,6 @@
 package utp.edu.pe.bfc.services;
 
-import utp.edu.pe.bfc.models.Cliente;
-import utp.edu.pe.bfc.models.Admin;
+import utp.edu.pe.bfc.models.Usuario;
 import utp.edu.pe.bfc.models.enums.Tipo;
 import utp.edu.pe.bfc.utils.AppConfig;
 import utp.edu.pe.bfc.utils.DataAccess;
@@ -37,20 +36,22 @@ public class Auth {
         return sb.toString();
     }
 
-    public Admin isValidAdmin(String email, String password) throws SQLException, IOException {
-        String query = "SELECT * FROM admin WHERE correo = ? AND contrasena = ?";
-        Admin admin = new Admin();
+    public Usuario isValidUsuario(String email, String password) throws SQLException, IOException {
+        String query = "SELECT * FROM usuario WHERE correo = ? AND contrasena = ?";
+        Usuario usuario = new Usuario();
         try (Connection cnn = DataAccess.getConnection(AppConfig.getDatasource());
              PreparedStatement ps = cnn.prepareStatement(query)) {
             ps.setString(1, email);
             ps.setString(2, md5(password));
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    admin.setAdminId(rs.getInt("adminId"));
-                    admin.setNombreCompleto(rs.getString("nombreCompleto"));
-                    admin.setCorreo(rs.getString("correo"));
-                    admin.setContrasena(rs.getString("contrasena"));
-                    admin.setTipo(Tipo.valueOf(rs.getString("tipo")));
+                    usuario.setUsuarioId(rs.getInt("usuarioId"));
+                    usuario.setNombreCompleto(rs.getString("nombreCompleto"));
+                    usuario.setCorreo(rs.getString("correo"));
+                    usuario.setContrasena(rs.getString("contrasena"));
+                    usuario.setTipo(Tipo.valueOf(rs.getString("tipo")));
+                    usuario.setTelefono(rs.getString("telefono"));
+                    usuario.setDireccion(rs.getString("direccion"));
                 } else {
                     throw new SQLException("No se pudo encontrar el usuario en la base de datos.");
                 }
@@ -58,30 +59,6 @@ public class Auth {
         } catch (NamingException e) {
             throw new RuntimeException(e);
         }
-        return admin;
-    }
-
-    public Cliente isValidCliente(String email, String password) throws SQLException, IOException {
-        String query = "SELECT * FROM cliente WHERE correo = ? AND contrasena = ?";
-        Cliente cliente = new Cliente();
-        try (Connection cnn = DataAccess.getConnection(AppConfig.getDatasource());
-             PreparedStatement ps = cnn.prepareStatement(query)) {
-            ps.setString(1, email);
-            ps.setString(2, md5(password));
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    cliente.setClienteId(rs.getInt("clienteId"));
-                    cliente.setNombreCompleto(rs.getString("nombreCompleto"));
-                    cliente.setNumeroTelefono(rs.getString("numeroTelefono"));
-                    cliente.setCorreo(rs.getString("correo"));
-                    cliente.setContrasena(rs.getString("contrasena"));
-                } else {
-                    throw new SQLException("No se pudo encontrar el cliente en la base de datos.");
-                }
-            }
-        } catch (NamingException e) {
-            throw new RuntimeException(e);
-        }
-        return cliente;
+        return usuario;
     }
 }

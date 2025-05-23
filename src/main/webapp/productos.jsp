@@ -37,7 +37,7 @@
                     <td><%= product.getNombre() %></td>
                     <td>S/ <%= product.getPrecio() %></td>
                     <td><%= product.getCategoria().getDisplayName() %></td>
-                    <td><%= product.getImagen() %></td>
+                    <td><img src="image?img=<%= product.getImagen() %>" width="100" height="100" style="border-radius: 999px"/></td>
                     <td>
                         <div class="d-flex gap-2">
                             <a href="redireccionar-producto?productoId=<%= product.getProductoId() %>" class="btn btn-warning btn-sm">Editar</a>

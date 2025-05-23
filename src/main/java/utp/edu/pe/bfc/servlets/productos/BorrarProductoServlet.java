@@ -9,7 +9,7 @@ import utp.edu.pe.bfc.dao.ProductoDAO;
 
 import java.io.IOException;
 
-@WebServlet("/borrar-producto")
+@WebServlet("/admin/borrar-producto")
 public class BorrarProductoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,7 +22,7 @@ public class BorrarProductoServlet extends HttpServlet {
 
         try {
             ProductoDAO productoDAO = new ProductoDAO();
-            productoDAO.deleteProducto(productoId);
+            productoDAO.inactiveProducto(productoId);
             productoDAO.close();
             resp.sendRedirect("productos");
         } catch (Exception e) {

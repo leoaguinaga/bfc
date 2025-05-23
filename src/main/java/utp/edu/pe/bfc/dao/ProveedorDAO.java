@@ -21,14 +21,14 @@ public class ProveedorDAO {
     }
 
     public void createProveedor(Proveedor proveedor) throws SQLException {
-        String query = "INSERT INTO proveedor (nombreCompleto, ruc, direccion, telefono, correo, personaContacto) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO proveedor (nombreEmpresa, ruc, direccion, telefono, correo, delegado) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = cnn.prepareStatement(query)) {
-            ps.setString(1, proveedor.getNombreCompleto());
+            ps.setString(1, proveedor.getNombreEmpresa());
             ps.setString(2, proveedor.getRuc());
             ps.setString(3, proveedor.getDireccion());
             ps.setString(4, proveedor.getTelefono());
             ps.setString(5, proveedor.getCorreo());
-            ps.setString(6, proveedor.getPersonaContacto());
+            ps.setString(6, proveedor.getDelegado());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException(e);
@@ -43,12 +43,12 @@ public class ProveedorDAO {
                 if (rs.next()) {
                     Proveedor proveedor = new Proveedor();
                     proveedor.setProveedorId(rs.getInt("proveedorId"));
-                    proveedor.setNombreCompleto(rs.getString("nombreCompleto"));
+                    proveedor.setNombreEmpresa(rs.getString("nombreEmpresa"));
                     proveedor.setRuc(rs.getString("ruc"));
                     proveedor.setDireccion(rs.getString("direccion"));
                     proveedor.setTelefono(rs.getString("telefono"));
                     proveedor.setCorreo(rs.getString("correo"));
-                    proveedor.setPersonaContacto(rs.getString("personaContacto"));
+                    proveedor.setDelegado(rs.getString("delegado"));
                     return proveedor;
                 }
             }
@@ -59,14 +59,14 @@ public class ProveedorDAO {
     }
 
     public void updateProveedor(Proveedor proveedor) throws SQLException {
-        String query = "UPDATE proveedor SET nombreCompleto = ?, ruc = ?, direccion = ?, telefono = ?, correo = ?, personaContacto = ? WHERE proveedorId = ?";
+        String query = "UPDATE proveedor SET nombreEmpresa = ?, ruc = ?, direccion = ?, telefono = ?, correo = ?, delegado = ? WHERE proveedorId = ?";
         try (PreparedStatement ps = cnn.prepareStatement(query)) {
-            ps.setString(1, proveedor.getNombreCompleto());
+            ps.setString(1, proveedor.getNombreEmpresa());
             ps.setString(2, proveedor.getRuc());
             ps.setString(3, proveedor.getDireccion());
             ps.setString(4, proveedor.getTelefono());
             ps.setString(5, proveedor.getCorreo());
-            ps.setString(6, proveedor.getPersonaContacto());
+            ps.setString(6, proveedor.getDelegado());
             ps.setInt(7, proveedor.getProveedorId());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -92,12 +92,12 @@ public class ProveedorDAO {
             while (rs.next()) {
                 Proveedor proveedor = new Proveedor();
                 proveedor.setProveedorId(rs.getInt("proveedorId"));
-                proveedor.setNombreCompleto(rs.getString("nombreCompleto"));
+                proveedor.setNombreEmpresa(rs.getString("nombreEmpresa"));
                 proveedor.setRuc(rs.getString("ruc"));
                 proveedor.setDireccion(rs.getString("direccion"));
                 proveedor.setTelefono(rs.getString("telefono"));
                 proveedor.setCorreo(rs.getString("correo"));
-                proveedor.setPersonaContacto(rs.getString("personaContacto"));
+                proveedor.setDescripcion(rs.getString("descripcion"));
                 proveedores.add(proveedor);
             }
         } catch (SQLException e) {

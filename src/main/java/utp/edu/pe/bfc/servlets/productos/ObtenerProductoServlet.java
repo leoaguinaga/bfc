@@ -9,7 +9,7 @@ import utp.edu.pe.bfc.dao.ProductoDAO;
 
 import java.io.IOException;
 
-@WebServlet("/obtener-producto")
+@WebServlet("/admin/obtener-producto")
 public class ObtenerProductoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
