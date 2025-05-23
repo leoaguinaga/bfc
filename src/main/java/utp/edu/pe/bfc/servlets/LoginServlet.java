@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 
                     case ADMIN:
                         session.setAttribute("usuario", usuario);
-                        resp.sendRedirect("admin/dashboard");
+                        resp.sendRedirect("admin/productos");
                         break;
                 }
             }

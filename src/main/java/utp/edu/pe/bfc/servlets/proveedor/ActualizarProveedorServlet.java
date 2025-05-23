@@ -1,4 +1,4 @@
-package utp.edu.pe.bfc.servlets.usuario;
+package utp.edu.pe.bfc.servlets.proveedor;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,8 +12,8 @@ import utp.edu.pe.bfc.models.enums.Tipo;
 
 import java.io.IOException;
 
-@WebServlet("/admin/actualizar-usuario")
-public class ActualizarUsuarioServlet extends HttpServlet {
+@WebServlet("/admin/actualizar-proveedor")
+public class ActualizarProveedorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);

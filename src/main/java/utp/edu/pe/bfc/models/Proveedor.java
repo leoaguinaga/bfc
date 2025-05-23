@@ -1,5 +1,7 @@
 package utp.edu.pe.bfc.models;
 
+import utp.edu.pe.bfc.models.enums.Estado;
+
 public class Proveedor {
     private int proveedorId;
     private String nombreEmpresa;
@@ -9,11 +11,12 @@ public class Proveedor {
     private String correo;
     private String descripcion;
     private String delegado;
+    private Estado estado;
 
     public Proveedor() {
     }
 
-    public Proveedor(String nombreEmpresa, String ruc, String direccion, String telefono, String correo, String descripcion, String delegado) {
+    public Proveedor(String nombreEmpresa, String ruc, String direccion, String telefono, String correo, String descripcion, String delegado, Estado estado) {
         this.nombreEmpresa = nombreEmpresa;
         this.ruc = ruc;
         this.direccion = direccion;
@@ -21,9 +24,10 @@ public class Proveedor {
         this.correo = correo;
         this.descripcion = descripcion;
         this.delegado = delegado;
+        this.estado = estado;
     }
 
-    public Proveedor(int proveedorId, String nombreEmpresa, String ruc, String direccion, String telefono, String correo, String descripcion, String delegado) {
+    public Proveedor(int proveedorId, String nombreEmpresa, String ruc, String direccion, String telefono, String correo, String descripcion, String delegado, Estado estado) {
         this.proveedorId = proveedorId;
         this.nombreEmpresa = nombreEmpresa;
         this.ruc = ruc;
@@ -32,6 +36,7 @@ public class Proveedor {
         this.correo = correo;
         this.descripcion = descripcion;
         this.delegado = delegado;
+        this.estado = estado;
     }
 
     @Override
@@ -45,6 +50,7 @@ public class Proveedor {
                 ", correo='" + correo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", delegado='" + delegado + '\'' +
+                ", estado=" + estado +
                 '}';
     }
 
@@ -110,5 +116,13 @@ public class Proveedor {
 
     public void setDelegado(String delegado) {
         this.delegado = delegado;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

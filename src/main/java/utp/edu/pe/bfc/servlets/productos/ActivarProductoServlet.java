@@ -18,7 +18,7 @@ public class ActivarProductoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int productoId = Integer.parseInt(req.getParameter("productoId"));
+        int productoId = Integer.parseInt(req.getParameter("id"));
 
         try {
             ProductoDAO productoDAO = new ProductoDAO();

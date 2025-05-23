@@ -9,8 +9,8 @@ import utp.edu.pe.bfc.dao.PedidoDAO;
 
 import java.io.IOException;
 
-@WebServlet("/admin/pedidos")
-public class PedidosServlet extends HttpServlet {
+@WebServlet("/admin/historial")
+public class HistorialServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
@@ -22,7 +22,7 @@ public class PedidosServlet extends HttpServlet {
             PedidoDAO pedidoDAO = new PedidoDAO();
             req.setAttribute("pedidos", pedidoDAO.getAllPedidos());
             pedidoDAO.close();
-            req.getRequestDispatcher("pedidos.jsp").forward(req, resp);
+            req.getRequestDispatcher("historial.jsp").forward(req, resp);
         } catch (Exception e) {
             req.setAttribute("message", e.getMessage());
             req.getRequestDispatcher("error.jsp").forward(req, resp);

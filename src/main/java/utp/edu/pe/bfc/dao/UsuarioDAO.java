@@ -1,6 +1,7 @@
 package utp.edu.pe.bfc.dao;
 
 import utp.edu.pe.bfc.models.Usuario;
+import utp.edu.pe.bfc.models.enums.Estado;
 import utp.edu.pe.bfc.models.enums.Tipo;
 import utp.edu.pe.bfc.services.Auth;
 import utp.edu.pe.bfc.utils.AppConfig;
@@ -26,7 +27,7 @@ public class UsuarioDAO {
     }
 
     public void createUsuario(Usuario usuario) throws SQLException {
-        String query = "INSERT INTO usuario (nombreCompleto, correo, contrasena, tipo, telefono, direccion) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO usuario (nombreCompleto, correo, contrasena, tipo, telefono, direccion, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = cnn.prepareStatement(query)) {
             ps.setString(1, usuario.getNombreCompleto());
             ps.setString(2, usuario.getCorreo());
@@ -34,6 +35,7 @@ public class UsuarioDAO {
             ps.setString(4, usuario.getTipo().name());
             ps.setString(5, usuario.getTelefono());
             ps.setString(6, usuario.getDireccion());
+            ps.setString(7, usuario.getEstado().toString());
             ps.executeUpdate();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -53,7 +55,8 @@ public class UsuarioDAO {
                             rs.getString("contrasena"),
                             Tipo.valueOf(rs.getString("tipo")),
                             rs.getString("telefono"),
-                            rs.getString("direccion")
+                            rs.getString("direccion"),
+                            Estado.valueOf(rs.getString("estado"))
                     );
                 }
             }
@@ -74,7 +77,8 @@ public class UsuarioDAO {
                             rs.getString("contrasena"),
                             Tipo.valueOf(rs.getString("tipo")),
                             rs.getString("telefono"),
-                            rs.getString("direccion")
+                            rs.getString("direccion"),
+                            Estado.valueOf(rs.getString("estado"))
                     );
                 }
             }
@@ -83,16 +87,19 @@ public class UsuarioDAO {
     }
 
     public void actualizarUsuario(Usuario usuario) throws SQLException {
-        String query = "UPDATE usuario SET nombreCompleto = ?, correo = ?, contrasena = ?, tipo = ?, telefono = ?, direccion = ? WHERE usuarioId = ?";
+        String query = "UPDATE usuario SET nombreCompleto = ?, correo = ?, contrasena = ?, tipo = ?, telefono = ?, direccion = ?, estado = ? WHERE usuarioId = ?";
         try (PreparedStatement ps = cnn.prepareStatement(query)) {
             ps.setString(1, usuario.getNombreCompleto());
             ps.setString(2, usuario.getCorreo());
-            ps.setString(3, usuario.getContrasena());
+            ps.setString(3, Auth.md5(usuario.getContrasena()));
             ps.setString(4, usuario.getTipo().name());
             ps.setString(5, usuario.getTelefono());
             ps.setString(6, usuario.getDireccion());
-            ps.setInt(7, usuario.getUsuarioId());
+            ps.setString(7, usuario.getEstado().toString());
+            ps.setInt(8, usuario.getUsuarioId());
             ps.executeUpdate();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -129,7 +136,8 @@ public class UsuarioDAO {
                                 rs.getString("contrasena"),
                                 Tipo.valueOf(rs.getString("tipo")),
                                 rs.getString("telefono"),
-                                rs.getString("direccion")
+                                rs.getString("direccion"),
+                                Estado.valueOf(rs.getString("estado"))
                         )
                 );
             }

@@ -1,16 +1,16 @@
-package utp.edu.pe.bfc.servlets.pedido;
+package utp.edu.pe.bfc.servlets.usuario;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import utp.edu.pe.bfc.dao.PedidoDAO;
+import utp.edu.pe.bfc.dao.UsuarioDAO;
 
 import java.io.IOException;
 
-@WebServlet("/admin/pedidos")
-public class PedidosServlet extends HttpServlet {
+@WebServlet("/admin/activar-usuario")
+public class ActivarUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
@@ -18,11 +18,13 @@ public class PedidosServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int usuarioId = Integer.parseInt(req.getParameter("id"));
+
         try {
-            PedidoDAO pedidoDAO = new PedidoDAO();
-            req.setAttribute("pedidos", pedidoDAO.getAllPedidos());
-            pedidoDAO.close();
-            req.getRequestDispatcher("pedidos.jsp").forward(req, resp);
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioDAO.activeUsuario(usuarioId);
+            usuarioDAO.close();
+            resp.sendRedirect("usuarios");
         } catch (Exception e) {
             req.setAttribute("message", e.getMessage());
             req.getRequestDispatcher("error.jsp").forward(req, resp);

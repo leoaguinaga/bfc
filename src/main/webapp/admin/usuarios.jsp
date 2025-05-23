@@ -1,9 +1,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="utp.edu.pe.bfc.models.Producto" %>
 <%@ page import="utp.edu.pe.bfc.models.enums.Estado" %>
+<%@ page import="utp.edu.pe.bfc.models.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    List<Producto> productos = (List<Producto>) request.getAttribute("productos");
+    List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
 %>
 <jsp:include page="components/head.jsp"/>
 <jsp:include page="components/sidebar.jsp"/>
@@ -12,58 +13,57 @@
     <div class="card">
         <div class="card-body">
             <div>
-                <button type="button" class="btn btn-success m-1" onclick="location.href='crear-producto.jsp'">Agregar producto</button>
+                <button type="button" class="btn btn-success m-1" onclick="location.href='crear-usuario.jsp'">Agregar usuario</button>
             </div>
             <div class="table-responsive">
-                <table class="table text-center table-responsive justify-content-center align-items-center">
+                <table class="table text-center table-responsive justify-content-center">
                     <thead>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Imagen</th>
-                    <th>Categoria</th>
+                    <th>Telefono</th>
+                    <th>Correo</th>
                     <th>Estado</th>
                     <th>Acción</th>
                     </thead>
                     <tbody>
-                    <% if (!productos.isEmpty()) { %>
+                    <% if (!usuarios.isEmpty()) { %>
                     <tr>
-                        <% for (Producto producto : productos) { %>
-                        <td><%= producto.getProductoId() %></td>
-                        <td><%= producto.getNombre() %></td>
-                        <td><%= producto.getPrecio() %></td>
-                        <td><img src="image?img=<%= producto.getImagen() %>" width="50" height="50" style="border-radius: 999px"/></td>
-                        <td><%= producto.getCategoria().getDisplayName() %></td>
-                        <% if (producto.getEstado().equals(Estado.ACTIVE)) { %>
-                        <td style="color:green"><%= producto.getEstado().getDisplayName() %></td>
+                        <% for (Usuario usuario : usuarios) { %>
+                        <td><%= usuario.getUsuarioId() %></td>
+                        <td><%= usuario.getNombreCompleto() %></td>
+                        <td><%= usuario.getTelefono() %></td>
+                        <td><%= usuario.getCorreo() %></td>
+                        <% if (usuario.getEstado().equals(Estado.ACTIVE)) { %>
+                            <td style="color:green"><%= usuario.getEstado().getDisplayName() %></td>
                         <% } else { %>
-                        <td style="color:red"><%= producto.getEstado().getDisplayName() %></td>
+                            <td style="color:red"><%= usuario.getEstado().getDisplayName() %></td>
                         <% } %>
                         <td>
                             <a
                                     type="button"
                                     class="btn btn-primary m-1"
-                                    href="obtener-producto?id=<%= producto.getProductoId() %>"
+                                    href="redireccionar-usuario?id=<%= usuario.getUsuarioId() %>"
                             >Editar</a>
-                            <% if (producto.getEstado().equals(Estado.ACTIVE)) { %>
+                            <% if (usuario.getEstado().equals(Estado.ACTIVE)) { %>
                             <a
                                     type="button"
                                     class="btn btn-danger m-1"
-                                    href="borrar-producto?id=<%= producto.getProductoId() %>"
+                                    href="desactivar-usuario?id=<%= usuario.getUsuarioId() %>"
                             >Desactivar</a>
                             <% } else { %>
                             <a
                                     type="button"
                                     class="btn btn-success m-1"
-                                    href="activar-producto?id=<%= producto.getProductoId() %>"
+                                    href="activar-usuario?id=<%= usuario.getUsuarioId() %>"
                             >Activar</a>
                             <% } %>
                         </td>
+                    <tr>
                         <% } %>
                     </tr>
                     <% } else { %>
                     <tr>
-                        <td colspan="6">No se encontraron productos en la base de datos</td>
+                        <td colspan="6">No se encontraron usuarios en la base de datos</td>
                     </tr>
                     <% } %>
                     </tbody>

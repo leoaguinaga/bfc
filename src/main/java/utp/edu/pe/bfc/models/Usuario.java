@@ -1,6 +1,7 @@
 package utp.edu.pe.bfc.models;
 
 
+import utp.edu.pe.bfc.models.enums.Estado;
 import utp.edu.pe.bfc.models.enums.Tipo;
 
 public class Usuario {
@@ -11,20 +12,22 @@ public class Usuario {
     private Tipo tipo;
     private String telefono;
     private String direccion;
+    private Estado estado;
 
     public Usuario() {
     }
 
-    public Usuario(String nombreCompleto, String correo, String contrasena, Tipo tipo, String telefono, String direccion) {
+    public Usuario(String nombreCompleto, String correo, String contrasena, Tipo tipo, String telefono, String direccion, Estado estado) {
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
         this.contrasena = contrasena;
         this.tipo = tipo;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.estado = estado;
     }
 
-    public Usuario(int usuarioId, String nombreCompleto, String correo, String contrasena, Tipo tipo, String telefono, String direccion) {
+    public Usuario(int usuarioId, String nombreCompleto, String correo, String contrasena, Tipo tipo, String telefono, String direccion, Estado estado) {
         this.usuarioId = usuarioId;
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
@@ -32,6 +35,7 @@ public class Usuario {
         this.tipo = tipo;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.estado = estado;
     }
 
     @Override
@@ -44,6 +48,7 @@ public class Usuario {
                 ", tipo=" + tipo +
                 ", telefono='" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +
+                ", estado=" + estado +
                 '}';
     }
 
@@ -101,5 +106,13 @@ public class Usuario {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 }

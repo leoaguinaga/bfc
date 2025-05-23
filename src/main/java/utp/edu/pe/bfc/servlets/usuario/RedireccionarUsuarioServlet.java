@@ -9,7 +9,7 @@ import utp.edu.pe.bfc.dao.UsuarioDAO;
 
 import java.io.IOException;
 
-@WebServlet("/redireccionar-usuario")
+@WebServlet("/admin/redireccionar-usuario")
 public class RedireccionarUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -19,10 +19,10 @@ public class RedireccionarUsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(req.getParameter("usuario"));
+            int id = Integer.parseInt(req.getParameter("id"));
 
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            usuarioDAO.obtenerUsuarioPorId(id);
+            req.setAttribute("usuario", usuarioDAO.obtenerUsuarioPorId(id));
             usuarioDAO.close();
             req.getRequestDispatcher("actualizar-usuario.jsp").forward(req, resp);
         } catch (Exception e) {

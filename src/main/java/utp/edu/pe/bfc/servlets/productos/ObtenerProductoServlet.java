@@ -19,7 +19,7 @@ public class ObtenerProductoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            int productoId = Integer.parseInt(req.getParameter("productoId"));
+            int productoId = Integer.parseInt(req.getParameter("id"));
             ProductoDAO productoDAO = new ProductoDAO();
             req.setAttribute("producto", productoDAO.getProducto(productoId));
             productoDAO.close();

@@ -7,11 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import utp.edu.pe.bfc.dao.UsuarioDAO;
 import utp.edu.pe.bfc.models.Usuario;
+import utp.edu.pe.bfc.models.enums.Estado;
 import utp.edu.pe.bfc.models.enums.Tipo;
 
 import java.io.IOException;
 
-@WebServlet("/crear-usuario")
+@WebServlet("/admin/crear-usuario")
 public class CrearUsuarioServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +24,7 @@ public class CrearUsuarioServlet extends HttpServlet {
         try {
             String nombreCompleto = req.getParameter("nombreCompleto");
             String email = req.getParameter("email");
-            String password = req.getParameter("password");
+            String password = req.getParameter("contrasena");
             String tipo = req.getParameter("tipo");
             String telefono = req.getParameter("telefono");
 
@@ -33,16 +34,13 @@ public class CrearUsuarioServlet extends HttpServlet {
             usuario.setContrasena(password);
             usuario.setTipo(Tipo.valueOf(tipo));
             usuario.setTelefono(telefono);
+            usuario.setEstado(Estado.ACTIVE);
 
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             usuarioDAO.createUsuario(usuario);
             usuarioDAO.close();
 
-            if (usuario.getTipo() == Tipo.CLIENTE) {
-                req.getRequestDispatcher("admins").forward(req, resp);
-            } else {
-                req.getRequestDispatcher("clientes").forward(req, resp);
-            }
+            resp.sendRedirect("usuarios");
         } catch (Exception e) {
             req.setAttribute("message", e.getMessage());
             req.getRequestDispatcher("error.jsp").forward(req, resp);

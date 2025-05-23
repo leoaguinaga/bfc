@@ -29,7 +29,7 @@ public class PedidoDAO {
             ps.setTimestamp(3, Timestamp.valueOf(pedido.getFecha()));
             ps.setString(4, pedido.getDireccion());
             ps.setDouble(5, pedido.getMonto());
-            ps.setString(6, pedido.getTipo().toString());
+            ps.setString(6, pedido.getEstado().toString());
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new SQLException(e);
@@ -52,7 +52,7 @@ public class PedidoDAO {
                     pedido.setFecha(rs.getTimestamp("fecha").toLocalDateTime());
                     pedido.setDireccion(rs.getString("direccion"));
                     pedido.setMonto(rs.getDouble("monto"));
-                    pedido.setTipo(EstadoPedido.valueOf(rs.getString("tipo")));
+                    pedido.setEstado(EstadoPedido.valueOf(rs.getString("tipo")));
                     return pedido;
                 }
             }
@@ -70,7 +70,7 @@ public class PedidoDAO {
             ps.setTimestamp(3, Timestamp.valueOf(pedido.getFecha()));
             ps.setString(4, pedido.getDireccion());
             ps.setDouble(5, pedido.getMonto());
-            ps.setString(6, pedido.getTipo().toString());
+            ps.setString(6, pedido.getEstado().toString());
             ps.setInt(7, pedido.getPedidoId());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -88,7 +88,7 @@ public class PedidoDAO {
         }
     }
 
-    public List<Pedido> getAllAPedidos() {
+    public List<Pedido> getAllPedidos() {
         List<Pedido> pedidos = new ArrayList<>();
         String query = "SELECT * FROM pedido";
         try (PreparedStatement ps = cnn.prepareStatement(query);
@@ -102,7 +102,7 @@ public class PedidoDAO {
                 pedido.setFecha(rs.getTimestamp("fecha").toLocalDateTime());
                 pedido.setDireccion(rs.getString("dirección"));
                 pedido.setMonto(rs.getDouble("monto"));
-                pedido.setTipo(EstadoPedido.valueOf(rs.getString("tipo")));
+                pedido.setEstado(EstadoPedido.valueOf(rs.getString("tipo")));
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {

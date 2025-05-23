@@ -13,7 +13,7 @@
             <span class="hide-menu">Home</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="dashboard" aria-expanded="false">
+            <a class="sidebar-link" href="dashboard.jsp" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -56,14 +56,14 @@
         <li class="sidebar-item">
             <a class="sidebar-link" href="usuarios" aria-expanded="false">
                 <span>
-                  <i class="ti ti-user"></i>
+                  <i class="ti ti-user-circle"></i>
                 </span>
                 <span class="hide-menu">Usuarios</span>
             </a>
         </li>
 
         <li class="sidebar-item">
-            <a class="sidebar-link" href="usuarios" aria-expanded="false">
+            <a class="sidebar-link" href="proveedores" aria-expanded="false">
                 <span>
                   <i class="ti ti-user"></i>
                 </span>

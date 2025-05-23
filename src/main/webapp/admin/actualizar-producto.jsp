@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-body">
             <div class="mb-6">
-                <h4 class="card-title" style="font-weight: bold;">Crear Producto</h4>
+                <h4 class="card-title" style="font-weight: bold;">Actualizar el producto</h4>
             </div>
             <form action="actualizar-producto" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="productoId" value="<%= producto.getProductoId() %>">
@@ -42,7 +42,7 @@
                     </select>
                 </div>
                 <div style="display: flex; justify-content: space-between;">
-                    <button type="submit" class="btn btn-warning">Actualizar producto</button>
+                    <button type="submit" class="btn btn-warning">Actualizar</button>
                     <button class="btn btn-danger" onclick="history.back()">Cancelar</button>
                 </div>
             </form>

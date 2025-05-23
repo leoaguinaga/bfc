@@ -11,7 +11,7 @@ public class Pedido {
     private LocalDateTime fecha;
     private String direccion;
     private double monto;
-    private EstadoPedido tipo;
+    private EstadoPedido estado;
 
     public Pedido() {
     }
@@ -22,7 +22,7 @@ public class Pedido {
         this.fecha = fecha;
         this.direccion = direccion;
         this.monto = monto;
-        this.tipo = tipo;
+        this.estado = tipo;
     }
 
     public Pedido(int pedidoId, Usuario cliente, Usuario admin, LocalDateTime fecha, String direccion, double monto, EstadoPedido tipo) {
@@ -32,7 +32,7 @@ public class Pedido {
         this.fecha = fecha;
         this.direccion = direccion;
         this.monto = monto;
-        this.tipo = tipo;
+        this.estado = tipo;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Pedido {
                 ", fecha=" + fecha +
                 ", direccion='" + direccion + '\'' +
                 ", monto=" + monto +
-                ", tipo=" + tipo +
+                ", tipo=" + estado +
                 '}';
     }
 
@@ -96,11 +96,11 @@ public class Pedido {
         this.monto = monto;
     }
 
-    public EstadoPedido getTipo() {
-        return tipo;
+    public EstadoPedido getEstado() {
+        return estado;
     }
 
-    public void setTipo(EstadoPedido tipo) {
-        this.tipo = tipo;
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
     }
 }
