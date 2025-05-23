@@ -22,6 +22,7 @@
                     <th>Nombre</th>
                     <th>Telefono</th>
                     <th>Correo</th>
+                    <th>Tipo</th>
                     <th>Estado</th>
                     <th>Acción</th>
                     </thead>
@@ -33,6 +34,7 @@
                         <td><%= usuario.getNombreCompleto() %></td>
                         <td><%= usuario.getTelefono() %></td>
                         <td><%= usuario.getCorreo() %></td>
+                        <td><%= usuario.getTipo().getDisplayName() %></td>
                         <% if (usuario.getEstado().equals(Estado.ACTIVE)) { %>
                             <td style="color:green"><%= usuario.getEstado().getDisplayName() %></td>
                         <% } else { %>

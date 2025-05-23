@@ -83,7 +83,7 @@
     </div>
     <% } %>
   </div>
-  <div class="row">
+  <div class="row" style="margin-top:21px;">
     <h1>Combos</h1>
     <!-- Columna 1 -->
     <% for (Combo combo : combos) { %>
